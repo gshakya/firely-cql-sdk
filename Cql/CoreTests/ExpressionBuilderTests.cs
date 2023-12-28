@@ -44,6 +44,18 @@ namespace CoreTests
             var expressions = eb.Build();
         }
 
+        [TestMethod]
+        public void ConversionTest_1_0_0()
+        {
+            var binding = new CqlOperatorsBinding(TypeResolver, TypeConverter);
+            var typeManager = new TypeManager(TypeResolver);
+            var elm = new FileInfo(@"Input\ELM\HL7\Conversion.json");
+            var elmPackage = Hl7.Cql.Elm.Library.LoadFromJson(elm);
+            var logger = CreateLogger();
+            var eb = new ExpressionBuilder(binding, typeManager, elmPackage, logger);
+            var expressions = eb.Build();
+        }
+
         // https://github.com/FirelyTeam/firely-cql-sdk/issues/129
         [TestMethod]
         public void Medication_Request_Example_Test()
