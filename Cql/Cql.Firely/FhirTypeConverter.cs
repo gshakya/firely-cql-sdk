@@ -10,6 +10,7 @@ using Hl7.Cql.Conversion;
 using Hl7.Cql.Primitives;
 using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.Support;
 using Hl7.Fhir.Utility;
 using System.Reflection;
 using System.Text;
@@ -49,6 +50,9 @@ namespace Hl7.Cql.Fhir
             add((M.FhirBoolean p) => p.Value);
             add((M.FhirDecimal p) => p.Value);
             add((M.Markdown p) => p.Value);
+            add((M.Instant p) => p.Value);
+            add((M.Code p) => p.Value);
+            add((M.FhirUrl p) => p.Value);
             add((M.Date f) => f.TryToDate(out var date) ? new CqlDate(date!.Years!.Value, date.Months, date.Days) : null);
             add((M.Date f) => f.TryToDate(out var date) ? new CqlDateTime(date!.Years!.Value, date.Months, date.Days, 0, 0, 0, 0, 0, 0) : null);
             add((M.Date f) => f.ToString());
@@ -94,6 +98,15 @@ namespace Hl7.Cql.Fhir
                 if (!toTypes.Contains(typeof(O)))
                     toTypes.Add(typeof(O));
             }
+            //CqlDateTime? changeDateTimeOffsetToCqlDateTime(DateTimeOffset? dt)
+            //{
+            //    if (dt.HasValue)
+            //    {
+            //    var dateTime = dt.Value;
+            //        return new CqlDateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond, null, null);
+            //    }
+            //    return null;
+            //}
 
             // Add a ParameterComponent->Cql primitive via the now registered basic conversion.
             void addParametersToCqlPrimitivesConverters(IEnumerable<Type> tos)
