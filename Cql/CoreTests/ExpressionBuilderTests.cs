@@ -49,11 +49,23 @@ namespace CoreTests
         {
             var binding = new CqlOperatorsBinding(TypeResolver, TypeConverter);
             var typeManager = new TypeManager(TypeResolver);
-            var elm = new FileInfo(@"Input\ELM\HL7\Conversion.json");
+            var elm = new FileInfo(@"Input\ELM\HL7\FHIRConversionTest.json");
             var elmPackage = Hl7.Cql.Elm.Library.LoadFromJson(elm);
             var logger = CreateLogger();
             var eb = new ExpressionBuilder(binding, typeManager, elmPackage, logger);
             var expressions = eb.Build();
+            Assert.IsNotNull(expressions);
+
+            var inst = new Instant(new DateTimeOffset(2023, 12, 11, 9, 41, 30, TimeSpan.FromHours(-5)));
+            var instv = inst.Value;
+            var ins = new Instant(instv);
+            Assert.AreEqual(inst, ins);
+
+            var md = new Markdown("Test");
+            var mds = md.ToString();
+            var mkd = new Markdown(mds);
+            Assert.AreEqual(mkd, md);
+
         }
 
         // https://github.com/FirelyTeam/firely-cql-sdk/issues/129

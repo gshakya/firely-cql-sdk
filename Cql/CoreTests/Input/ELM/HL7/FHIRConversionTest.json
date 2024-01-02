@@ -6,7 +6,7 @@
          "type" : "CqlToElmInfo"
       } ],
       "identifier" : {
-         "id" : "Connversion",
+         "id" : "FHIRConversionTest",
          "version" : "2023.0.0"
       },
       "schemaIdentifier" : {
